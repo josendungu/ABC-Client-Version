@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">abc</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="abc_auto_valuers">ABC AUTO VALUERS</string>
+    <string name="enter_details_prompt">Please provide the following personal details</string>
+    <string name="surname">Surname</string>
+    <string name="fast_reliable_efficient"><![CDATA[fast, reliable & efficient]]></string>
+</resources>
