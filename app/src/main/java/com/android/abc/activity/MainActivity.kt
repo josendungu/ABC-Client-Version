@@ -9,8 +9,9 @@ import com.android.abc.R
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        application.setTheme(Resources.Theme.MaterialComponents.Light.NoActionBar)
         setContentView(R.layout.activity_main)
+
+
 
 
     }

@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DashboardFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/blue"
+        tools:context=".fragments.DashboardFragment">
 
-</FrameLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blue"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="21sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
+
+        <RelativeLayout
+            android:id="@+id/schedule"
+            android:layout_width="275dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:background="@drawable/linear_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome"
+            app:layout_constraintVertical_bias="0.20">
+
+
+            <TextView
+                android:id="@+id/scheduleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_black"
+                android:padding="10dp"
+                android:text="@string/schedule_valuation"
+                android:textAllCaps="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/car_convertible"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/scheduleText"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/car_prompt" />
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

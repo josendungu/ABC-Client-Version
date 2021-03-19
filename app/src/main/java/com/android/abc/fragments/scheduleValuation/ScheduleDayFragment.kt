@@ -6,16 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.abc.R
+import com.android.abc.databinding.FragmentScheduleCarDetailsBinding
+import com.android.abc.databinding.FragmentScheduleDayBinding
 
 
 class ScheduleDayFragment : Fragment() {
+
+    private var _binding: FragmentScheduleDayBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule_day, container, false)
+        _binding = FragmentScheduleDayBinding.inflate(inflater,container, false)
+
+
+        return binding.root
     }
 
 }
