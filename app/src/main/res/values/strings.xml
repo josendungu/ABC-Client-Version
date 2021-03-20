@@ -17,7 +17,7 @@
     <string name="car_prompt">Add your car(s) details</string>
     <string name="plate_number">Plate Number</string>
     <string name="add">Add</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="finish">Finish</string>
     <string name="welcome">Welcome</string>
     <string name="schedule_valuation">Schedule Valuation</string>

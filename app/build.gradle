@@ -54,7 +54,19 @@ dependencies {
     //navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+
     // DataBinding
     kapt "com.android.databinding:compiler:3.2.0-alpha10"
     kapt "androidx.databinding:databinding-common:4.1.2"
+
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
+
+    // Lifecycle component
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+
+    // Kotlin coroutines components
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
+
 }
