@@ -20,12 +20,14 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         val toolbar = binding.toolBarLayout
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        toolbar.title = null
+
 
         binding.schedule.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_scheduleCarDetails)

@@ -6,21 +6,6 @@
     app:startDestination="@id/landingFragment">
 
     <fragment
-        android:id="@+id/landingFragment"
-        android:name="com.android.abc.fragments.LandingFragment"
-        android:label="fragment_landing"
-        tools:layout="@layout/fragment_landing" >
-        <action
-            android:id="@+id/action_landing_to_splashScreen"
-            app:destination="@id/splashScreenFragment" />
-        <action
-            android:id="@+id/action_landing_to_dashboard"
-            app:destination="@id/dashboardFragment" />
-        <action
-            android:id="@+id/action_landing_to_clientDetails"
-            app:destination="@id/clientDetailsAddFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/clientDetailsAddFragment"
         android:name="com.android.abc.fragments.details.ClientDetailsAddFragment"
         android:label="fragment_client_details_add"
@@ -37,15 +22,21 @@
         <action
             android:id="@+id/action_carDetailsAdd_to_dashboard"
             app:destination="@id/dashboardFragment" />
+        <argument
+            android:name="clientDetails"
+            app:argType="com.android.abc.data.models.Client" />
     </fragment>
     <fragment
-        android:id="@+id/splashScreenFragment"
-        android:name="com.android.abc.fragments.SplashScreenFragment"
+        android:id="@+id/landingFragment"
+        android:name="com.android.abc.fragments.LandingFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_landing" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_clientDetailsAddFragment"
+            android:id="@+id/action_landing_to_clientDetails"
             app:destination="@id/clientDetailsAddFragment" />
+        <action
+            android:id="@+id/action_landing_to_dashboard"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"

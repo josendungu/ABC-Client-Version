@@ -4,7 +4,7 @@
     <string name="abc_auto_valuers">ABC AUTO VALUERS</string>
     <string name="enter_details_prompt">Please provide the following personal details</string>
     <string name="surname">Surname</string>
-    <string name="fast_reliable_efficient"><![CDATA[fast, reliable & efficient]]></string>
+    <string name="fast_reliable_efficient">FAST, RELIABLE &amp; EFFICIENT></string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="phone_number">Phone Number</string>
@@ -30,7 +30,7 @@
     <string name="day">Day</string>
     <string name="time">Time</string>
     <string name="textRelevantDetails">Please provide any other information that may be relevant to the valuer</string>
-    <string name="splash_screen_prompt">Book your valuation within a minute and our valued will be with you as soon as requested</string>
+    <string name="splash_screen_prompt">Book your valuation within a minute and our valuer will be with you as soon as requested</string>
     <string name="text_setup">Please take time and fill the details for better services.</string>
     <string name="setup">Setup</string>
 </resources>
