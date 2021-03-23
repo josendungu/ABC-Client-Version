@@ -98,5 +98,10 @@ class ClientDetailsAddFragment : Fragment() {
         binding.editTextSurname.error = null
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

@@ -1,18 +1,17 @@
 package com.android.abc.data.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.android.abc.splashDataStore
 import com.android.abc.utils.SplashScreenStateManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class StateManagerViewModel(application: Application): AndroidViewModel(application) {
 
     private val splashScreenStateManager = application.baseContext.splashDataStore.let { SplashScreenStateManager(it) }
 
-    var statePresent: MutableLiveData<Boolean> = MutableLiveData(false)
+    var statePresent: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getSplashScreenState(): LiveData<Boolean>{
 
@@ -29,9 +28,12 @@ class StateManagerViewModel(application: Application): AndroidViewModel(applicat
     }
 
 
-    suspend fun saveState(boolean: Boolean){
+    fun saveState(boolean: Boolean){
 
-        splashScreenStateManager.saveState(boolean)
+        viewModelScope.launch(Dispatchers.IO) {
+            splashScreenStateManager.saveState(boolean)
+        }
+
 
     }
 }

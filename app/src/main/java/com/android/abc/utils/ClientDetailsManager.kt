@@ -46,6 +46,8 @@ class ClientDetailsManager(private val dataStore: DataStore<Preferences>) {
 
     }
 
+
+
     val surname: Flow<String?> = dataStore.data.map {
         it[STATE_SURNAME]
     }

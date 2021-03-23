@@ -2,16 +2,15 @@ package com.android.abc.data.viewmodel
 
 import android.app.Application
 import android.widget.EditText
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.android.abc.utils.ClientDetailsManager
 import com.android.abc.data.models.Client
 import com.android.abc.splashDataStore
 import com.android.abc.userDataStore
 import com.android.abc.utils.SplashScreenStateManager
 import com.android.abc.utils.Validate
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ClientDetailsViewModel(application: Application): AndroidViewModel(application) {
 
@@ -40,16 +39,18 @@ class ClientDetailsViewModel(application: Application): AndroidViewModel(applica
         plates = client.plates
     }
 
-    suspend fun saveClientDetails(){
-        clientDetailsManager.saveState(getClient())
+    fun saveClientDetails(){
+        viewModelScope.launch(Dispatchers.IO) {
+            clientDetailsManager.saveState(getClient())
+        }
     }
 
-    fun getClient(): Client{
+    private fun getClient(): Client{
         return Client(surname, firstName, lastName, phoneNumber, email, county, town, id, plates)
     }
 
 
-    fun getMutableClientData(): LiveData<Client> {
+    fun fetchClientData(): LiveData<Client> {
 
         clientDetailsManager.surname.asLiveData().observeForever {
             if (it != null) {
