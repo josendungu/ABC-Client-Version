@@ -10,12 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.android.abc.R
 import com.android.abc.databinding.FragmentDashboardBinding
 
-
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,13 +26,17 @@ class DashboardFragment : Fragment() {
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
         toolbar.title = null
 
-
         binding.schedule.setOnClickListener {
             findNavController().navigate(R.id.action_dashboard_to_scheduleCarDetails)
         }
 
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

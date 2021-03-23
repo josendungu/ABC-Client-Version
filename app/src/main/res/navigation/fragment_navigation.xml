@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_dashboard_to_scheduleCarDetails"
             app:destination="@id/scheduleCarDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_clientDetails"
+            app:destination="@id/clientDetailsAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleCarDetailsFragment"
@@ -70,6 +73,9 @@
         <action
             android:id="@+id/action_scheduleClientDetails_to_scheduleVenueDetails"
             app:destination="@id/scheduleVenueDetailsFragment" />
+        <argument
+            android:name="plateNumber"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/scheduleVenueDetailsFragment"
