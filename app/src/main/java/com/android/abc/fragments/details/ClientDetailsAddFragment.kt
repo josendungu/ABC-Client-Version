@@ -1,19 +1,15 @@
 package com.android.abc.fragments.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
-import com.android.abc.R
 import com.android.abc.data.models.Client
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
+import com.android.abc.data.viewmodel.SharedViewModel
 import com.android.abc.databinding.FragmentClientDetailsAddBinding
 
 
@@ -23,6 +19,7 @@ class ClientDetailsAddFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -42,21 +39,8 @@ class ClientDetailsAddFragment : Fragment() {
             val lastName = binding.editTextLastName.text.toString()
             val county = binding.editTextCounty.text.toString()
             val town = binding.editTextTown.text.toString()
-
-            val idText = binding.editTextId.text.toString()
-            val id = if (idText == ""){
-                null
-            } else {
-                Integer.parseInt(idText)
-            }
-
-            val phoneNumberText = binding.editTextNumber.text.toString()
-            val phoneNumber = if (phoneNumberText == ""){
-                null
-            } else {
-                Integer.parseInt(phoneNumberText)
-            }
-
+            val id = mSharedViewModel.convertIntToString(binding.editTextId.text.toString())
+            val phoneNumber = mSharedViewModel.convertIntToString(binding.editTextNumber.text.toString())
             val email = binding.editTextEmail.text.toString()
             val plates: MutableList<String> = ArrayList()
 
@@ -65,14 +49,14 @@ class ClientDetailsAddFragment : Fragment() {
 
 
             if (
-                mClientDetailsViewModel.validateSurname(binding.editTextSurname) &&
-                mClientDetailsViewModel.validateFirstName(binding.editTextFirstName) &&
-                mClientDetailsViewModel.validateLastName(binding.editTextLastName) &&
-                mClientDetailsViewModel.validateCounty(binding.editTextCounty) &&
-                mClientDetailsViewModel.validateTown(binding.editTextTown) &&
-                mClientDetailsViewModel.validatePhone(binding.editTextNumber) &&
-                mClientDetailsViewModel.validateEmail(binding.editTextEmail) &&
-                mClientDetailsViewModel.validateId(binding.editTextId)
+                mSharedViewModel.validateSurname(surname, binding.editTextSurname) &&
+                mSharedViewModel.validateFirstName(firstName, binding.editTextFirstName) &&
+                mSharedViewModel.validateLastName(lastName, binding.editTextLastName) &&
+                mSharedViewModel.validateCounty(county, binding.editTextCounty) &&
+                mSharedViewModel.validateTown(town, binding.editTextTown) &&
+                mSharedViewModel.validatePhone(phoneNumber.toString(), binding.editTextNumber) &&
+                mSharedViewModel.validateEmail(email, binding.editTextEmail) &&
+                mSharedViewModel.validateId(id.toString(), binding.editTextId)
             ) {
 
                 val action =
@@ -102,6 +86,8 @@ class ClientDetailsAddFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 
 }

@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -85,8 +82,8 @@
 
 
                 <Button
-                    android:layout_width="0dp"
                     android:id="@+id/buttonAddPlate"
+                    android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="4dp"
                     android:background="@drawable/custom_button"
@@ -104,12 +101,12 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/car_recycler"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
-            android:layout_marginTop="30dp"
             app:layout_constraintBottom_toTopOf="@+id/frame"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
@@ -117,8 +114,8 @@
             tools:listitem="@layout/car_recycler_item" />
 
         <FrameLayout
-            android:layout_width="0dp"
             android:id="@+id/frame"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,11 +126,11 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="9dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_button"
                 android:fontFamily="@font/montserrat_bold"
+                android:padding="9dp"
                 android:text="@string/finish"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -145,4 +142,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

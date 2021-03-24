@@ -12,22 +12,23 @@ import com.android.abc.utils.Validate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ClientDetailsViewModel(application: Application): AndroidViewModel(application) {
+class ClientDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var surname: String
-    lateinit var firstName: String
-    lateinit var lastName: String
-    lateinit var email:String
-    var phoneNumber:Int? = null
-    lateinit var county: String
-    lateinit var town:  String
+    var surname: String? = null
+    var firstName: String? = null
+    var lastName: String? = null
+    var email: String? = null
+    var phoneNumber: Int? = null
+    var county: String? = null
+    var town: String? = null
     var id: Int? = null
-    lateinit var plates: MutableList<String>
+    var plates: MutableList<String>? = null
 
-    private val clientDetailsManager = application.baseContext.userDataStore.let { ClientDetailsManager(it) }
+    private val clientDetailsManager =
+        application.baseContext.userDataStore.let { ClientDetailsManager(it) }
 
 
-    fun setClientData(client: Client){
+    fun setClientData(client: Client) {
         surname = client.surname
         firstName = client.firstName
         lastName = client.lastName
@@ -39,153 +40,24 @@ class ClientDetailsViewModel(application: Application): AndroidViewModel(applica
         plates = client.plates
     }
 
-    fun saveClientDetails(){
+    fun saveClientDetails() {
         viewModelScope.launch(Dispatchers.IO) {
             clientDetailsManager.saveState(getClient())
         }
     }
 
-    private fun getClient(): Client{
+    fun getClient(): Client {
         return Client(surname, firstName, lastName, phoneNumber, email, county, town, id, plates)
     }
 
 
     fun fetchClientData(): LiveData<Client> {
 
-        clientDetailsManager.surname.asLiveData().observeForever {
-            if (it != null) {
-                surname = it
-            }
-        }
-
-        clientDetailsManager.firstName.asLiveData().observeForever {
-            if (it != null) {
-                firstName = it
-            }
-        }
-
-        clientDetailsManager.lastName.asLiveData().observeForever {
-            if (it != null) {
-                lastName = it
-            }
-        }
-
-        clientDetailsManager.email.asLiveData().observeForever {
-            if (it != null) {
-                email = it
-            }
-        }
-
-        clientDetailsManager.phoneNumber.asLiveData().observeForever {
-            if (it != null) {
-                phoneNumber = it
-            }
-        }
-
-        clientDetailsManager.county.asLiveData().observeForever {
-            if (it != null) {
-                county = it
-            }
-        }
-
-        clientDetailsManager.town.asLiveData().observeForever {
-            if (it != null) {
-                town = it
-            }
-        }
-
-        clientDetailsManager.id.asLiveData().observeForever {
-            if (it != null) {
-                id = it
-            }
-        }
-
-        clientDetailsManager.plates.asLiveData().observeForever {
-            if (it != null) {
-                plates = it
-            }
-        }
-
-        val client = Client(surname, firstName, lastName, phoneNumber, email, county, town, id, plates)
-
-        val clientDetails: MutableLiveData<Client> = MutableLiveData()
-        clientDetails.value = client
-        return clientDetails
-
-
+        val client = clientDetailsManager.getClientData()
+        client.value?.let { setClientData(it) }
+        return client
     }
 
-    fun validateSurname(editText: EditText): Boolean{
-
-        val validation = Validate(surname, editText)
-        return validation.stringEmpty()
-                && validation.doesNotContainsSpecialCharacter()
-                && validation.noWhiteSpaces()
-
-    }
-
-    fun validateFirstName(editText: EditText): Boolean{
-
-        val validation = Validate(firstName, editText)
-        return validation.stringEmpty() && validation.doesNotContainsSpecialCharacter() && validation.noWhiteSpaces()
-
-    }
-
-    fun validateLastName(editText: EditText): Boolean{
-
-        val validation = Validate(lastName, editText)
-        return validation.stringEmpty() && validation.doesNotContainsSpecialCharacter() && validation.noWhiteSpaces()
-
-    }
-
-    fun validateEmail(editText: EditText): Boolean{
-
-        val validation = Validate(email, editText)
-
-        return validation.stringEmpty() && validation.validateEmail()
-
-    }
-
-    fun validatePhone( editText: EditText): Boolean{
-
-        val validation = Validate(phoneNumber.toString(), editText)
-        return if (phoneNumber == null){
-            editText.error = "Field can't be empty"
-            false
-        } else{
-            validation.phoneNumber()
-
-        }
-
-    }
-
-    fun validateCounty(editText: EditText): Boolean{
-
-        val validation = Validate(county, editText)
-        return validation.stringEmpty() && validation.doesNotContainsSpecialCharacter()
-
-    }
-
-    fun validateTown(editText: EditText): Boolean{
-
-        val validation = Validate(town, editText)
-        return validation.stringEmpty() && validation.doesNotContainsSpecialCharacter()
-
-    }
-
-    fun validateId(editText: EditText): Boolean{
-
-        return if (id == null){
-            editText.error = "Field can't be empty"
-            false
-        } else{
-            true
-
-        }
-
-
-
-    }
 
 
 

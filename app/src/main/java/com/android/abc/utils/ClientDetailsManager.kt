@@ -3,6 +3,9 @@ package com.android.abc.utils
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import com.android.abc.data.models.Client
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -25,18 +28,18 @@ class ClientDetailsManager(private val dataStore: DataStore<Preferences>) {
     suspend fun saveState(client: Client) {
 
         dataStore.edit {
-            it[STATE_FIRST_NAME] = client.firstName
-            it[STATE_LAST_NAME] = client.lastName
-            it[STATE_SURNAME] = client.firstName
+            it[STATE_FIRST_NAME] = client.firstName!!
+            it[STATE_LAST_NAME] = client.lastName!!
+            it[STATE_SURNAME] = client.surname!!
             it[STATE_PHONE_NUMBER] = client.phoneNumber!!
-            it[STATE_EMAIL] = client.email
-            it[STATE_COUNTY] = client.county
-            it[STATE_TOWN] = client.town
+            it[STATE_EMAIL] = client.email!!
+            it[STATE_COUNTY] = client.county!!
+            it[STATE_TOWN] = client.town!!
             it[STATE_ID] = client.id!!
-            it[STATE_TOWN] = client.town
-            it[STATE_PLATE_SIZE] = client.plates.size
+            it[STATE_TOWN] = client.town!!
+            it[STATE_PLATE_SIZE] = client.plates?.size!!
 
-            client.plates.forEachIndexed { index, element ->
+            client.plates!!.forEachIndexed { index, element ->
                 val plateString = stringPreferencesKey("plate_${index + 1}")
                 it[plateString] = element
             }
@@ -46,44 +49,103 @@ class ClientDetailsManager(private val dataStore: DataStore<Preferences>) {
 
     }
 
+    fun getClientData(): LiveData<Client> {
+
+        val client = Client()
+
+        val surname: Flow<String?> = dataStore.data.map {
+            it[STATE_SURNAME]
+        }
+
+        surname.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.surname = value
+            }
+        }
+
+        val firstName: Flow<String?> = dataStore.data.map {
+            it[STATE_FIRST_NAME]
+        }
+
+        firstName.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.firstName = value
+            }
+        }
+
+        val lastName: Flow<String?> = dataStore.data.map {
+            it[STATE_LAST_NAME]
+        }
+
+        lastName.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.lastName = value
+            }
+        }
+
+        val email: Flow<String?> = dataStore.data.map {
+            it[STATE_EMAIL]
+        }
+
+        email.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.email = value
+            }
+        }
+
+        val town: Flow<String?> = dataStore.data.map {
+            it[STATE_TOWN]
+        }
+
+        town.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.town = value
+            }
+        }
+
+        val phoneNumber: Flow<Int?> = dataStore.data.map {
+            it[STATE_PHONE_NUMBER]
+        }
+
+        phoneNumber.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.phoneNumber = value
+            }
+        }
+
+        val county: Flow<String?> = dataStore.data.map {
+            it[STATE_COUNTY]
+        }
+
+        county.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.county = value
+            }
+        }
+
+        val id: Flow<Int?> = dataStore.data.map {
+            it[STATE_ID]
+        }
+
+        id.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.id = value
+            }
+        }
 
 
-    val surname: Flow<String?> = dataStore.data.map {
-        it[STATE_SURNAME]
-    }
+        val plates: Flow<MutableList<String>> = dataStore.data.map {
+            getPlates(it)
+        }
+
+        plates.asLiveData().observeForever { value ->
+            if (value != null) {
+                client.plates = value
+            }
+        }
 
 
-    val firstName: Flow<String?> = dataStore.data.map {
-        it[STATE_FIRST_NAME]
-    }
-
-    val lastName: Flow<String?> = dataStore.data.map {
-        it[STATE_LAST_NAME]
-    }
-
-    val email: Flow<String?> = dataStore.data.map {
-        it[STATE_EMAIL]
-    }
-
-    val town: Flow<String?> = dataStore.data.map {
-        it[STATE_TOWN]
-    }
-
-    val phoneNumber: Flow<Int?> = dataStore.data.map {
-        it[STATE_PHONE_NUMBER]
-    }
-
-    val county: Flow<String?> = dataStore.data.map {
-        it[STATE_COUNTY]
-    }
-
-    val id: Flow<Int?> = dataStore.data.map {
-        it[STATE_ID]
-    }
-
-
-    val plates: Flow<MutableList<String>> = dataStore.data.map {
-        getPlates(it)
+        return MutableLiveData(client)
     }
 
 

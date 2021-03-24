@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.abc.R
+import com.android.abc.data.models.Client
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.data.viewmodel.StateManagerViewModel
 import com.android.abc.databinding.FragmentLandingBinding
@@ -21,6 +22,10 @@ class LandingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mStateManagerViewModel: StateManagerViewModel by viewModels()
+    private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
+
+    private lateinit var client: Client
+
 
 
     override fun onCreateView(
@@ -38,11 +43,17 @@ class LandingFragment : Fragment() {
 
             if (state) {
 
-                findNavController().navigate(R.id.action_landing_to_dashboard)
+                mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner,  {
+                    client = it
+                })
+
+                val action = LandingFragmentDirections.actionLandingToDashboard(client)
+                findNavController().navigate(action)
 
             }
 
         })
+
 
 
         binding.setUp.setOnClickListener {

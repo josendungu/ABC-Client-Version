@@ -7,7 +7,7 @@
     <string name="fast_reliable_efficient">FAST, RELIABLE &amp; EFFICIENT></string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="phone_number">Phone Number</string>
+    <string name="phone_number">Phone Number(07…)</string>
     <string name="email">Email</string>
     <string name="id_number">ID Number</string>
     <string name="county">County</string>
@@ -20,9 +20,10 @@
     <string name="cancel">Cancel</string>
     <string name="finish">Finish</string>
     <string name="welcome">Welcome</string>
+    <string name="client_added">Your details were successfully added. Proceed to schedule a valuation</string>
     <string name="schedule_valuation">Schedule Valuation</string>
     <string name="select_the_car_you_want_valuated">Select the car you want valuated</string>
-    <string name="provide_details">Please provide the following details. Fields marked * are compulsory</string>
+    <string name="provide_details">Please provide the following details.</string>
     <string name="plate_number_custom">KAU 341Q</string>
     <string name="client_details">Client Details</string>
     <string name="valuation_location_details">Valuation location Details</string>
@@ -33,4 +34,6 @@
     <string name="splash_screen_prompt">Book your valuation within a minute and our valuer will be with you as soon as requested</string>
     <string name="text_setup">Please take time and fill the details for better services.</string>
     <string name="setup">Setup</string>
+    <string name="added_prompt">You successfully booked a valuation. Expect a call from us soon. Please remember to have a copy of your log book, KRA Pin and Identification Card with you during the valuation</string>
+    <string name="add_plate">Add Plate Number</string>
 </resources>

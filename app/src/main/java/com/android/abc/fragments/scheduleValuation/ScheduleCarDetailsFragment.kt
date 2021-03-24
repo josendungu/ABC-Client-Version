@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.abc.R
+import com.android.abc.data.models.Client
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.databinding.FragmentScheduleCarDetailsBinding
 import com.android.abc.utils.SplashScreenStateManager
@@ -19,8 +23,10 @@ class ScheduleCarDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val adapter = CarSelectAdapter()
+    private lateinit var client: Client
 
-    private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
+    private val args by navArgs<ScheduleCarDetailsFragmentArgs>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +34,14 @@ class ScheduleCarDetailsFragment : Fragment() {
     ): View {
         _binding = FragmentScheduleCarDetailsBinding.inflate(inflater, container, false)
 
-        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
-            adapter.plateList = it.plates
-        })
+        client = args.clientDetails
+        adapter.setData(client.plates!!, client)
 
+
+        binding.buttonAdd.setOnClickListener {
+            val action = ScheduleCarDetailsFragmentDirections.actionScheduleCarDetailsFragmentToCarDetailsAddFragment(client, true)
+            findNavController().navigate(action)
+        }
         setUpRecyclerView()
 
         return binding.root

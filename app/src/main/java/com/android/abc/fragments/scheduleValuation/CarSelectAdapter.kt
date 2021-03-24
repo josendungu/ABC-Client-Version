@@ -10,11 +10,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android.abc.R
+import com.android.abc.data.models.Client
+import com.android.abc.data.models.ScheduleDetails
 import com.android.abc.fragments.details.CarDetailsAddFragmentDirections
 
 class CarSelectAdapter: RecyclerView.Adapter<CarSelectAdapter.ViewHolder>() {
 
-    var plateList: MutableList<String> = ArrayList()
+    var plateList: List<String>? = emptyList()
+    private lateinit var client: Client
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)   {
 
@@ -24,12 +27,15 @@ class CarSelectAdapter: RecyclerView.Adapter<CarSelectAdapter.ViewHolder>() {
 
         fun bind(plate: String){
             plateTextView.text = plate
+            val scheduleDetails = ScheduleDetails()
+            scheduleDetails.plateNumber = plate
             imageButtonCancel.visibility = View.INVISIBLE
 
             plateContainer.setOnClickListener {
-                val action = ScheduleCarDetailsFragmentDirections.actionScheduleCarDetailsToScheduleClientDetails(plate)
+                val action = ScheduleCarDetailsFragmentDirections.actionScheduleCarDetailsToScheduleClientDetails(scheduleDetails, client)
                 itemView.findNavController().navigate(action)
             }
+
         }
 
     }
@@ -40,9 +46,19 @@ class CarSelectAdapter: RecyclerView.Adapter<CarSelectAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(plateList[position])
+        if (plateList != null){
+            holder.bind(plateList!![position])
+        }
     }
 
-    override fun getItemCount(): Int = plateList.size
+    override fun getItemCount(): Int = plateList!!.size
+
+
+
+    fun setData(plates: MutableList<String>, client: Client){
+        this.plateList = plates
+        this.client = client
+        notifyDataSetChanged()
+    }
 
 }

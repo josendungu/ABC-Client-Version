@@ -39,42 +39,61 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
 
+
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/addedPrompt"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/added_prompt"
+            android:background="@color/success"
+            android:visibility="gone"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="20dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
         <RelativeLayout
             android:id="@+id/schedule"
             android:layout_width="275dp"
-            android:orientation="vertical"
             android:layout_height="wrap_content"
             android:background="@drawable/linear_background"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome"
-            app:layout_constraintVertical_bias="0.20">
+            app:layout_constraintTop_toBottomOf="@+id/addedPrompt"
+            app:layout_constraintVertical_bias="0.100000024">
 
 
             <TextView
                 android:id="@+id/scheduleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_black"
                 android:padding="10dp"
                 android:text="@string/schedule_valuation"
                 android:textAllCaps="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
                 android:textColor="@color/blue"
                 android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/car_convertible"
-                android:layout_alignParentEnd="true"
                 android:layout_below="@id/scheduleText"
-                android:layout_marginBottom="5dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:contentDescription="@string/car_prompt" />
-
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/car_prompt"
+                android:src="@drawable/car_convertible" />
 
 
         </RelativeLayout>

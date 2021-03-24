@@ -22,11 +22,13 @@ class CarDetailsAddFragment : Fragment() {
 
     private val adapter by lazy { CarRecyclerAdapter() }
 
-    private val tempPlateList: MutableList<String> = ArrayList()
+    private lateinit var tempPlateList: MutableList<String>
     private val args by navArgs<CarDetailsAddFragmentArgs>()
 
     private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
     private val mStateManager: StateManagerViewModel by viewModels()
+
+    private var toSchedule: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +39,13 @@ class CarDetailsAddFragment : Fragment() {
         binding.lifecycleOwner = this
 
         mClientDetailsViewModel.setClientData(args.clientDetails)
+        toSchedule = args.backToSchedule
 
+        tempPlateList = mClientDetailsViewModel.plates!!
+
+        if (toSchedule){
+            adapter.setData(tempPlateList)
+        }
 
         binding.buttonAddPlate.setOnClickListener {
 
@@ -70,11 +78,17 @@ class CarDetailsAddFragment : Fragment() {
                 binding.editTextPlate.error = "Please add at least one plate number"
             } else {
                 mClientDetailsViewModel.plates = tempPlateList
-
                 mClientDetailsViewModel.saveClientDetails()
                 mStateManager.saveState(true)
 
-                findNavController().navigate(R.id.action_carDetailsAdd_to_dashboard)
+                if (toSchedule){
+                    val action = CarDetailsAddFragmentDirections.actionCarDetailsAddFragmentToScheduleCarDetailsFragment(mClientDetailsViewModel.getClient())
+                    findNavController().navigate(action)
+                } else {
+                    val action = CarDetailsAddFragmentDirections.actionCarDetailsAddToDashboard(mClientDetailsViewModel.getClient(), clientAddSuccess = true)
+                    findNavController().navigate(action)
+                }
+
             }
         }
 
