@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_client_details_add" >
         <action
             android:id="@+id/action_clientDetails_to_carDetails"
-            app:destination="@id/carDetailsAddFragment" />
+            app:destination="@id/carDetailsAddFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/carDetailsAddFragment"
@@ -21,7 +23,9 @@
         tools:layout="@layout/fragment_car_details_add" >
         <action
             android:id="@+id/action_carDetailsAdd_to_dashboard"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
@@ -31,7 +35,9 @@
             android:defaultValue="false" />
         <action
             android:id="@+id/action_carDetailsAddFragment_to_scheduleCarDetailsFragment"
-            app:destination="@id/scheduleCarDetailsFragment" />
+            app:destination="@id/scheduleCarDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/landingFragment"
@@ -40,10 +46,14 @@
         tools:layout="@layout/fragment_landing" >
         <action
             android:id="@+id/action_landing_to_clientDetails"
-            app:destination="@id/clientDetailsAddFragment" />
+            app:destination="@id/clientDetailsAddFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_landing_to_dashboard"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
@@ -52,7 +62,9 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboard_to_scheduleCarDetails"
-            app:destination="@id/scheduleCarDetailsFragment" />
+            app:destination="@id/scheduleCarDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
@@ -72,13 +84,17 @@
         tools:layout="@layout/fragment_schedule_car_details" >
         <action
             android:id="@+id/action_scheduleCarDetails_to_scheduleClientDetails"
-            app:destination="@id/scheduleClientDetailsFragment" />
+            app:destination="@id/scheduleClientDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
         <action
             android:id="@+id/action_scheduleCarDetailsFragment_to_carDetailsAddFragment"
-            app:destination="@id/carDetailsAddFragment" />
+            app:destination="@id/carDetailsAddFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/scheduleClientDetailsFragment"
@@ -87,10 +103,14 @@
         tools:layout="@layout/fragment_schedule_client_details" >
         <action
             android:id="@+id/action_scheduleClientDetails_to_dashboard"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_scheduleClientDetails_to_scheduleVenueDetails"
-            app:destination="@id/scheduleVenueDetailsFragment" />
+            app:destination="@id/scheduleVenueDetailsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <argument
             android:name="scheduleDetails"
             app:argType="com.android.abc.data.models.ScheduleDetails" />
@@ -104,10 +124,14 @@
         tools:layout="@layout/fragment_schedule_venue_details" >
         <action
             android:id="@+id/action_scheduleVenueDetails_to_dashboard"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_scheduleVenueDetails_to_scheduleDay"
-            app:destination="@id/scheduleDayFragment" />
+            app:destination="@id/scheduleDayFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <argument
             android:name="scheduleDetails"
             app:argType="com.android.abc.data.models.ScheduleDetails" />
@@ -122,7 +146,9 @@
         tools:layout="@layout/fragment_schedule_day" >
         <action
             android:id="@+id/action_scheduleDay_to_dashboard"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <argument
             android:name="scheduleDetails"
             app:argType="com.android.abc.data.models.ScheduleDetails" />
