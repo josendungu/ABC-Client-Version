@@ -1,17 +1,20 @@
 package com.android.abc.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
+import com.android.abc.activity.ClearStack
+import com.android.abc.activity.SetupActionBar
 import com.android.abc.data.models.Client
 import com.android.abc.databinding.FragmentDashboardBinding
+import java.lang.Exception
 
 class DashboardFragment : Fragment() {
 
@@ -24,16 +27,31 @@ class DashboardFragment : Fragment() {
     private var scheduleSuccess: Boolean = false
     private var clientDetailsAdd: Boolean = false
 
+    private lateinit var setupActionBar: SetupActionBar
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            setupActionBar = (activity as SetupActionBar)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface");
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
+
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         client = args.clientDetails
-        scheduleSuccess = args.sheduleSuccess
+        scheduleSuccess = args.scheduleSuccess
         clientDetailsAdd = args.clientAddSuccess
+
+        setupToolBar()
 
         if (clientDetailsAdd){
             binding.addedPrompt.visibility = View.VISIBLE
@@ -46,11 +64,6 @@ class DashboardFragment : Fragment() {
             hideMessage()
         }
 
-
-        val toolbar = binding.toolBarLayout
-        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
-        toolbar.title = null
-
         binding.schedule.setOnClickListener {
             val action = DashboardFragmentDirections.actionDashboardToScheduleCarDetails(client)
             findNavController().navigate(action)
@@ -59,6 +72,11 @@ class DashboardFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun setupToolBar() {
+        binding.toolBarLayout.title = ""
+        setupActionBar.setup(binding.toolBarLayout, R.id.dashboardFragment)
     }
 
     private fun hideMessage(){

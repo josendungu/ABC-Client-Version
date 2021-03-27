@@ -14,7 +14,9 @@
             android:id="@+id/action_clientDetails_to_carDetails"
             app:destination="@id/carDetailsAddFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/carDetailsAddFragment"
@@ -25,7 +27,9 @@
             android:id="@+id/action_carDetailsAdd_to_dashboard"
             app:destination="@id/dashboardFragment"
             app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right" />
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="false" />
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
@@ -37,7 +41,9 @@
             android:id="@+id/action_carDetailsAddFragment_to_scheduleCarDetailsFragment"
             app:destination="@id/scheduleCarDetailsFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/landingFragment"
@@ -48,12 +54,16 @@
             android:id="@+id/action_landing_to_clientDetails"
             app:destination="@id/clientDetailsAddFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_landing_to_dashboard"
             app:destination="@id/dashboardFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
@@ -64,12 +74,14 @@
             android:id="@+id/action_dashboard_to_scheduleCarDetails"
             app:destination="@id/scheduleCarDetailsFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
         <argument
-            android:name="sheduleSuccess"
+            android:name="scheduleSuccess"
             app:argType="boolean"
             android:defaultValue="false" />
         <argument
@@ -86,7 +98,9 @@
             android:id="@+id/action_scheduleCarDetails_to_scheduleClientDetails"
             app:destination="@id/scheduleClientDetailsFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
@@ -95,6 +109,10 @@
             app:destination="@id/carDetailsAddFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
+        <argument
+            android:name="platesUpdated"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/scheduleClientDetailsFragment"
@@ -105,12 +123,16 @@
             android:id="@+id/action_scheduleClientDetails_to_dashboard"
             app:destination="@id/dashboardFragment"
             app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right" />
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_scheduleClientDetails_to_scheduleVenueDetails"
             app:destination="@id/scheduleVenueDetailsFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="scheduleDetails"
             app:argType="com.android.abc.data.models.ScheduleDetails" />
@@ -126,12 +148,16 @@
             android:id="@+id/action_scheduleVenueDetails_to_dashboard"
             app:destination="@id/dashboardFragment"
             app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right" />
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_scheduleVenueDetails_to_scheduleDay"
             app:destination="@id/scheduleDayFragment"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <argument
             android:name="scheduleDetails"
             app:argType="com.android.abc.data.models.ScheduleDetails" />
@@ -148,7 +174,9 @@
             android:id="@+id/action_scheduleDay_to_dashboard"
             app:destination="@id/dashboardFragment"
             app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right" />
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/fragment_navigation"
+            app:popUpToInclusive="false" />
         <argument
             android:name="scheduleDetails"
             app:argType="com.android.abc.data.models.ScheduleDetails" />

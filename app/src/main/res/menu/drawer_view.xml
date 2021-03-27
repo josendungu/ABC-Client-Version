@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/dashboardFragment"
+            android:title="@string/dashboard"/>
+        <item
+            android:id="@+id/nav_policy_status"
+            android:title="@string/my_policy_status"/>
+
+        <item
+            android:id="@+id/nav_covers"
+            android:title="@string/insurance_covers"/>
+
+        <item
+            android:id="@+id/assessment"
+            android:title="@string/assessment"/>
+
+        <item
+            android:id="@+id/quote"
+            android:title="@string/request_quote"/>
+
+        <item
+            android:id="@+id/road_side"
+            android:title="@string/road_side_assistance"/>
+
+    </group>
+
+</menu>

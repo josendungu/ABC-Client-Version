@@ -82,7 +82,7 @@ class CarDetailsAddFragment : Fragment() {
                 mStateManager.saveState(true)
 
                 if (toSchedule){
-                    val action = CarDetailsAddFragmentDirections.actionCarDetailsAddFragmentToScheduleCarDetailsFragment(mClientDetailsViewModel.getClient())
+                    val action = CarDetailsAddFragmentDirections.actionCarDetailsAddFragmentToScheduleCarDetailsFragment(mClientDetailsViewModel.getClient(),true)
                     findNavController().navigate(action)
                 } else {
                     val action = CarDetailsAddFragmentDirections.actionCarDetailsAddToDashboard(mClientDetailsViewModel.getClient(), clientAddSuccess = true)

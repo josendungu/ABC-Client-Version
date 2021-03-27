@@ -1,5 +1,6 @@
 package com.android.abc.fragments.scheduleValuation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.abc.R
+import com.android.abc.activity.ClearStack
+import com.android.abc.activity.SetupActionBar
 import com.android.abc.data.models.Client
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.databinding.FragmentScheduleCarDetailsBinding
 import com.android.abc.utils.SplashScreenStateManager
+import java.lang.Exception
 
 
 class ScheduleCarDetailsFragment : Fragment() {
@@ -24,6 +28,7 @@ class ScheduleCarDetailsFragment : Fragment() {
 
     private val adapter = CarSelectAdapter()
     private lateinit var client: Client
+    private var platesUpdated: Boolean = false
 
     private val args by navArgs<ScheduleCarDetailsFragmentArgs>()
 
@@ -35,7 +40,9 @@ class ScheduleCarDetailsFragment : Fragment() {
         _binding = FragmentScheduleCarDetailsBinding.inflate(inflater, container, false)
 
         client = args.clientDetails
+        platesUpdated = args.platesUpdated
         adapter.setData(client.plates!!, client)
+
 
 
         binding.buttonAdd.setOnClickListener {

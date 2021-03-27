@@ -13,16 +13,16 @@
         android:background="@color/blue"
         tools:context=".fragments.DashboardFragment">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBarLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/blue"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
 
         <TextView
             android:id="@+id/welcome"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/toolBarLayout" />
 
 
         <TextView
