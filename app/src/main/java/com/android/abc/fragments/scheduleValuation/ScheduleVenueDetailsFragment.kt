@@ -1,5 +1,6 @@
 package com.android.abc.fragments.scheduleValuation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,12 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.data.models.Client
 import com.android.abc.data.models.ScheduleDetails
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.data.viewmodel.SharedViewModel
 import com.android.abc.databinding.FragmentScheduleCarDetailsBinding
 import com.android.abc.databinding.FragmentScheduleVenueDetailsBinding
+import java.lang.Exception
 
 
 class ScheduleVenueDetailsFragment : Fragment() {
@@ -31,6 +34,19 @@ class ScheduleVenueDetailsFragment : Fragment() {
 
     private lateinit var client: Client
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            drawerLocker = (activity as DrawerLocker)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface")
+        }
+
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +55,13 @@ class ScheduleVenueDetailsFragment : Fragment() {
         binding.selectedPlateText.text = scheduleDetails.plateNumber
 
     }
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.unlockDrawer()
+
+    }
+
 
 
     override fun onCreateView(
@@ -49,6 +72,8 @@ class ScheduleVenueDetailsFragment : Fragment() {
         _binding = FragmentScheduleVenueDetailsBinding.inflate(inflater, container, false)
         scheduleDetails = args.scheduleDetails
         client = args.clientDetails
+
+        drawerLocker.lockDrawer()
 
         mClientDetailsViewModel.setClientData(client)
 

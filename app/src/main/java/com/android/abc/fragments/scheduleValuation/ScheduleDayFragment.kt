@@ -3,6 +3,7 @@ package com.android.abc.fragments.scheduleValuation
 import android.animation.TimeAnimator
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import android.widget.TimePicker
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.data.models.Client
 import com.android.abc.data.models.ScheduleDetails
 import com.android.abc.databinding.FragmentScheduleCarDetailsBinding
@@ -21,6 +23,7 @@ import com.android.abc.databinding.FragmentScheduleDayBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
 
@@ -49,6 +52,26 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
     private lateinit var scheduleDetails: ScheduleDetails
     private lateinit var client: Client
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            drawerLocker = (activity as DrawerLocker)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface")
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.unlockDrawer()
+
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +80,8 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
 
         scheduleDetails = args.scheduleDetails
         client = args.clientDetails
+        drawerLocker.lockDrawer()
+
 
         binding.plateNumber.text = scheduleDetails.plateNumber
 

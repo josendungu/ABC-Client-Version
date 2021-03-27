@@ -1,5 +1,6 @@
 package com.android.abc.fragments.details
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.data.models.Client
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.data.viewmodel.SharedViewModel
 import com.android.abc.databinding.FragmentClientDetailsAddBinding
+import java.lang.Exception
 
 
 class ClientDetailsAddFragment : Fragment() {
@@ -21,6 +24,19 @@ class ClientDetailsAddFragment : Fragment() {
     private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            drawerLocker = (activity as DrawerLocker)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface")
+        }
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +45,9 @@ class ClientDetailsAddFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentClientDetailsAddBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
+        drawerLocker.lockDrawer()
+
 
         binding.buttonClientNext.setOnClickListener {
 
@@ -86,6 +105,13 @@ class ClientDetailsAddFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.unlockDrawer()
+
+    }
+
 
 
 

@@ -1,5 +1,6 @@
 package com.android.abc.fragments.scheduleValuation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.data.models.Client
 import com.android.abc.data.models.ScheduleDetails
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.data.viewmodel.SharedViewModel
 import com.android.abc.databinding.FragmentScheduleClientDetailsBinding
+import java.lang.Exception
 
 
 class ScheduleClientDetailsFragment : Fragment() {
@@ -31,12 +34,32 @@ class ScheduleClientDetailsFragment : Fragment() {
 
     private lateinit var client: Client
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            drawerLocker = (activity as DrawerLocker)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface")
+        }
+
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.mClientDetails = mClientDetailsViewModel
         binding.selectedPlateText.text = scheduleDetails.plateNumber
+
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.unlockDrawer()
 
     }
 
@@ -49,6 +72,9 @@ class ScheduleClientDetailsFragment : Fragment() {
         scheduleDetails = args.scheduleDetails
         client = args.clientDetails
         mClientDetailsViewModel.setClientData(client)
+
+        drawerLocker.lockDrawer()
+
 
         binding.buttonNext.setOnClickListener {
 

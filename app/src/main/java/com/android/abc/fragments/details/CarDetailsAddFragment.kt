@@ -1,5 +1,6 @@
 package com.android.abc.fragments.details
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.abc.R
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.data.viewmodel.StateManagerViewModel
 import com.android.abc.databinding.FragmentCarDetailsAddBinding
+import java.lang.Exception
 
 
 class CarDetailsAddFragment : Fragment() {
@@ -30,6 +33,19 @@ class CarDetailsAddFragment : Fragment() {
 
     private var toSchedule: Boolean = false
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            drawerLocker = (activity as DrawerLocker)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface")
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +53,9 @@ class CarDetailsAddFragment : Fragment() {
 
         _binding = FragmentCarDetailsAddBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
+        drawerLocker.lockDrawer()
+
 
         mClientDetailsViewModel.setClientData(args.clientDetails)
         toSchedule = args.backToSchedule
@@ -103,6 +122,12 @@ class CarDetailsAddFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.unlockDrawer()
+
     }
 
 

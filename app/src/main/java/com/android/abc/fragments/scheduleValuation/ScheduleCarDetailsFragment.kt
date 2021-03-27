@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.abc.R
 import com.android.abc.activity.ClearStack
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.activity.SetupActionBar
 import com.android.abc.data.models.Client
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
@@ -32,6 +33,18 @@ class ScheduleCarDetailsFragment : Fragment() {
 
     private val args by navArgs<ScheduleCarDetailsFragmentArgs>()
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            drawerLocker = (activity as DrawerLocker)
+        } catch (e: Exception){
+            throw ClassCastException(activity.toString() + " must implement MyInterface")
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +56,7 @@ class ScheduleCarDetailsFragment : Fragment() {
         platesUpdated = args.platesUpdated
         adapter.setData(client.plates!!, client)
 
-
+        drawerLocker.lockDrawer()
 
         binding.buttonAdd.setOnClickListener {
             val action = ScheduleCarDetailsFragmentDirections.actionScheduleCarDetailsFragmentToCarDetailsAddFragment(client, true)
@@ -58,6 +71,13 @@ class ScheduleCarDetailsFragment : Fragment() {
         binding.carRecycler.adapter = adapter
         binding.carRecycler.layoutManager = LinearLayoutManager(requireActivity())
     }
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.unlockDrawer()
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
