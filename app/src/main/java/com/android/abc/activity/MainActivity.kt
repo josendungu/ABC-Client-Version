@@ -82,9 +82,8 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
         when(item.itemId){
 
             R.id.dashboardFragment -> {
-                if (!checkIfActive(R.id.dashboardFragment)){
+                if (!checkIfActive(R.id.dashboardFragment))
                     Toast.makeText(this, "Moving to dashboard",Toast.LENGTH_LONG).show()
-                }
 
             }
 
@@ -94,6 +93,20 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
             }
 
             R.id.quote -> {
+                if (!checkIfActive(R.id.quote))
+                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+            }
+
+            R.id.nav_covers -> {
+                if (!checkIfActive(R.id.nav_covers))
+                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+            }
+            R.id.assessment -> {
+                if (!checkIfActive(R.id.assessment))
+                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+            }
+
+            R.id.road_side -> {
                 if (!checkIfActive(R.id.quote))
                     Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
             }

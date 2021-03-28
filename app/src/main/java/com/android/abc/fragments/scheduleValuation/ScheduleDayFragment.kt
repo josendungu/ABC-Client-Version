@@ -106,6 +106,8 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
                 }
                 else -> {
 
+                    binding.progressBar.visibility = View.VISIBLE
+
                     scheduleDetails.day = finalDate
                     scheduleDetails.time = finalTime
 
@@ -119,7 +121,9 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
 
                         }
                         .addOnFailureListener {
-                            Snackbar.make(requireContext(),requireView(), it.toString(), Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(requireContext(),requireView(), "Error: $it ", Snackbar.LENGTH_LONG).show()
+                            binding.progressBar.visibility = View.INVISIBLE
+
                         }
 
 
