@@ -1,10 +1,12 @@
 package com.android.abc.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -43,11 +45,13 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
 
         active = fragmentId
 
-        val toggle = ActionBarDrawerToggle(this,
+        val toggle = ActionBarDrawerToggle(
+            this,
             binding.drawerLayout,
             toolbar,
             R.string.open_nav,
-            R.string.close_nav)
+            R.string.close_nav
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
     }
@@ -83,32 +87,40 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
 
             R.id.dashboardFragment -> {
                 if (!checkIfActive(R.id.dashboardFragment))
-                    Toast.makeText(this, "Moving to dashboard",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Moving to dashboard", Toast.LENGTH_LONG).show()
 
             }
 
             R.id.nav_policy_status -> {
-                if (!checkIfActive(R.id.nav_policy_status))
-                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+                val url = "http://fidelityshield.com/account/"
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(url)
+                startActivity(i)
             }
 
             R.id.quote -> {
                 if (!checkIfActive(R.id.quote))
-                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
             }
 
             R.id.nav_covers -> {
-                if (!checkIfActive(R.id.nav_covers))
-                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+                val url = "http://fidelityshield.com/products/personal-solutions/"
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(url)
+                startActivity(i)
             }
             R.id.assessment -> {
-                if (!checkIfActive(R.id.assessment))
-                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+
+                val url = "https://abcautovaluersltd.com"
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(url)
+                startActivity(i)
+
             }
 
             R.id.road_side -> {
                 if (!checkIfActive(R.id.quote))
-                    Toast.makeText(this, "Coming soon",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
             }
 
         }
