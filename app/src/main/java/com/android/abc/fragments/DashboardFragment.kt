@@ -3,6 +3,7 @@ package com.android.abc.fragments
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,17 +40,21 @@ class DashboardFragment : Fragment() {
         }
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        client = args.clientDetails
         scheduleSuccess = args.scheduleSuccess
         clientDetailsAdd = args.clientAddSuccess
+
+        client = args.clientDetails
+        val clientName = "${client.firstName} ${client.lastName}"
+
+        Log.d("ClientDetails", "onCreateView: ${client.surname}")
 
         setupToolBar()
 

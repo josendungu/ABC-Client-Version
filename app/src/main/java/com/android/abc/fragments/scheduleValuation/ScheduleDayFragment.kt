@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
@@ -82,6 +83,7 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
         client = args.clientDetails
         drawerLocker.lockDrawer()
 
+        binding.progressBar.indeterminateDrawable.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_ATOP)
 
         binding.plateNumber.text = scheduleDetails.plateNumber
 
@@ -92,8 +94,7 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
             findNavController().navigate(action)
         }
 
-
-        binding.buttonNext.setOnClickListener {
+        binding.buttonNext.setOnClickListener { button ->
 
             binding.editTextDate.error = null
 
@@ -116,11 +117,13 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
 
                     databaseReference.push().setValue(scheduleDetails)
                         .addOnSuccessListener {
+                            button.isClickable = false
                             val action = ScheduleDayFragmentDirections.actionScheduleDayToDashboard(client, true)
                             findNavController().navigate(action)
 
                         }
                         .addOnFailureListener {
+                            button.isClickable = true
                             Snackbar.make(requireContext(),requireView(), "Error: $it ", Snackbar.LENGTH_LONG).show()
                             binding.progressBar.visibility = View.INVISIBLE
 
@@ -133,7 +136,6 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
 
         return binding.root
     }
-
 
     private fun pickTime(){
 
@@ -150,7 +152,7 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         myDay = dayOfMonth
         myYear = year
-        myMonth = month
+        myMonth = month+1
 
         getDateTimeCalender()
         TimePickerDialog(requireContext(), this, hour, minute, true).show()

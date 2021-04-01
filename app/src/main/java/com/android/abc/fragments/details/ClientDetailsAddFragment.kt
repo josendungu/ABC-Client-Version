@@ -58,8 +58,8 @@ class ClientDetailsAddFragment : Fragment() {
             val lastName = binding.editTextLastName.text.toString()
             val county = binding.editTextCounty.text.toString()
             val town = binding.editTextTown.text.toString()
-            val id = mSharedViewModel.convertIntToString(binding.editTextId.text.toString())
-            val phoneNumber = mSharedViewModel.convertIntToString(binding.editTextNumber.text.toString())
+            val id = binding.editTextId.text.toString()
+            val phoneNumber = binding.editTextNumber.text.toString()
             val email = binding.editTextEmail.text.toString()
             val plates: MutableList<String> = ArrayList()
 

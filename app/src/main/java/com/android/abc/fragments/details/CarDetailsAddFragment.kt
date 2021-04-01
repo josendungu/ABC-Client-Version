@@ -79,6 +79,7 @@ class CarDetailsAddFragment : Fragment() {
                 } else {
                     adapter.setData(tempPlateList)
                     tempPlateList.add(plate)
+                    binding.editTextPlate.text = null
                 }
 
             }

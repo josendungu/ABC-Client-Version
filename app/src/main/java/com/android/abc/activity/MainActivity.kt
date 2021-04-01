@@ -17,6 +17,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.android.abc.R
 import com.android.abc.databinding.ActivityMainBinding
+import com.android.abc.databinding.NavigationHeaderBinding
 import com.google.android.material.navigation.NavigationView
 
 
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
     }
 
     private fun setupDrawerLayout() {
+
         binding.navView.setupWithNavController(navController)
     }
 

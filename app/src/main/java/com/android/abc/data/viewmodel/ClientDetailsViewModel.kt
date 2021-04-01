@@ -18,10 +18,10 @@ class ClientDetailsViewModel(application: Application) : AndroidViewModel(applic
     var firstName: String? = null
     var lastName: String? = null
     var email: String? = null
-    var phoneNumber: Int? = null
+    var phoneNumber: String? = null
     var county: String? = null
     var town: String? = null
-    var id: Int? = null
+    var id: String? = null
     var plates: MutableList<String>? = null
 
     private val clientDetailsManager =

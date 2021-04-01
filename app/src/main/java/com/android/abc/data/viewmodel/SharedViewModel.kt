@@ -34,7 +34,6 @@ class SharedViewModel(application: Application): AndroidViewModel(application){
     fun validateEmail(email:String, editText: EditText): Boolean {
 
         val validation = Validate(email, editText)
-
         return validation.stringEmpty() && validation.validateEmail()
 
     }
@@ -42,13 +41,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application){
     fun validatePhone(phoneNumber: String, editText: EditText): Boolean {
 
         val validation = Validate(phoneNumber, editText)
-        return if (phoneNumber.isEmpty()) {
-            editText.error = "Field can't be empty"
-            false
-        } else {
-            validation.phoneNumber()
-
-        }
+        return validation.stringEmpty() && validation.phoneNumber()
 
     }
 
@@ -75,7 +68,6 @@ class SharedViewModel(application: Application): AndroidViewModel(application){
             true
 
         }
-
 
     }
 

@@ -16,11 +16,11 @@ class ClientDetailsManager(private val dataStore: DataStore<Preferences>) {
         val STATE_SURNAME = stringPreferencesKey("surname")
         val STATE_FIRST_NAME = stringPreferencesKey("first_name")
         val STATE_LAST_NAME = stringPreferencesKey("last_name")
-        val STATE_PHONE_NUMBER = intPreferencesKey("phone_number")
+        val STATE_PHONE_NUMBER = stringPreferencesKey("phone_number")
         val STATE_EMAIL = stringPreferencesKey("email")
         val STATE_COUNTY = stringPreferencesKey("county")
         val STATE_TOWN = stringPreferencesKey("town")
-        val STATE_ID = intPreferencesKey("id")
+        val STATE_ID = stringPreferencesKey("id")
         val STATE_PLATE_SIZE = intPreferencesKey("number_plates_size")
 
     }
@@ -103,7 +103,7 @@ class ClientDetailsManager(private val dataStore: DataStore<Preferences>) {
             }
         }
 
-        val phoneNumber: Flow<Int?> = dataStore.data.map {
+        val phoneNumber: Flow<String?> = dataStore.data.map {
             it[STATE_PHONE_NUMBER]
         }
 
@@ -123,7 +123,7 @@ class ClientDetailsManager(private val dataStore: DataStore<Preferences>) {
             }
         }
 
-        val id: Flow<Int?> = dataStore.data.map {
+        val id: Flow<String?> = dataStore.data.map {
             it[STATE_ID]
         }
 

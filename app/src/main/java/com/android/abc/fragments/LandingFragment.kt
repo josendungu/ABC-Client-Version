@@ -30,6 +30,14 @@ class LandingFragment : Fragment() {
 
     private lateinit var drawerLocker: DrawerLocker
 
+    override fun onStart() {
+        super.onStart()
+
+        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
+            client = it
+        })
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -59,10 +67,6 @@ class LandingFragment : Fragment() {
             mStateManagerViewModel.statePresent = MutableLiveData(state)
 
             if (state) {
-
-                mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
-                    client = it
-                })
 
                 val action = LandingFragmentDirections.actionLandingToDashboard(client)
                 findNavController().navigate(action)

@@ -42,7 +42,7 @@ class ScheduleClientDetailsFragment : Fragment() {
         try {
             drawerLocker = (activity as DrawerLocker)
         } catch (e: Exception){
-            throw ClassCastException(activity.toString() + " must implement MyInterface")
+            throw ClassCastException(activity.toString() + " must implement interface")
         }
 
     }
@@ -83,27 +83,26 @@ class ScheduleClientDetailsFragment : Fragment() {
             val surname = binding.editTextSurname.text.toString()
             val firstName = binding.editTextFirstName.text.toString()
             val lastName = binding.editTextLastName.text.toString()
-            val id = mSharedViewModel.convertIntToString(binding.editTextId.text.toString())
+            val id = binding.editTextId.text.toString()
             val email = binding.editTextEmail.text.toString()
-            val phoneNumber =
-                mSharedViewModel.convertIntToString(binding.editTextNumber.text.toString())
+            val phoneNumber = binding.editTextNumber.text.toString()
 
 
             if (
                 mSharedViewModel.validateSurname(surname, binding.editTextSurname) &&
                 mSharedViewModel.validateFirstName(firstName, binding.editTextFirstName) &&
                 mSharedViewModel.validateLastName(lastName, binding.editTextLastName) &&
-                mSharedViewModel.validatePhone(phoneNumber.toString(), binding.editTextNumber) &&
+                mSharedViewModel.validatePhone(phoneNumber, binding.editTextNumber) &&
                 mSharedViewModel.validateEmail(email, binding.editTextEmail) &&
-                mSharedViewModel.validateId(id.toString(), binding.editTextId)
+                mSharedViewModel.validateId(id, binding.editTextId)
             ) {
 
                 scheduleDetails.firstName = firstName
                 scheduleDetails.lastName = lastName
                 scheduleDetails.surname = surname
-                scheduleDetails.phoneNumber = phoneNumber.toString()
+                scheduleDetails.phoneNumber = phoneNumber
                 scheduleDetails.email = email
-                scheduleDetails.id = id.toString()
+                scheduleDetails.id = id
 
                 val action =
                     ScheduleClientDetailsFragmentDirections.actionScheduleClientDetailsToScheduleVenueDetails(
