@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
 import com.android.abc.activity.ClearStack
+import com.android.abc.activity.DrawerLocker
 import com.android.abc.activity.SetupActionBar
 import com.android.abc.data.models.Client
 import com.android.abc.databinding.FragmentDashboardBinding
@@ -30,11 +31,16 @@ class DashboardFragment : Fragment() {
 
     private lateinit var setupActionBar: SetupActionBar
 
+    private lateinit var drawerLocker: DrawerLocker
+
+    private val handler = Handler()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         try {
             setupActionBar = (activity as SetupActionBar)
+            drawerLocker = (activity as DrawerLocker)
         } catch (e: Exception){
             throw ClassCastException(activity.toString() + " must implement MyInterface");
         }
@@ -48,6 +54,7 @@ class DashboardFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
+        drawerLocker.unlockDrawer()
         scheduleSuccess = args.scheduleSuccess
         clientDetailsAdd = args.clientAddSuccess
 
@@ -70,6 +77,10 @@ class DashboardFragment : Fragment() {
         }
 
         binding.schedule.setOnClickListener {
+            if (binding.addedPrompt.visibility == View.VISIBLE){
+                handler.removeCallbacksAndMessages(null)
+                binding.addedPrompt.visibility = View.GONE
+            }
             val action = DashboardFragmentDirections.actionDashboardToScheduleCarDetails(client)
             findNavController().navigate(action)
         }
@@ -85,14 +96,21 @@ class DashboardFragment : Fragment() {
     }
 
     private fun hideMessage(){
-        Handler().postDelayed({
+        handler.postDelayed({
             binding.addedPrompt.visibility = View.GONE
         }, 10000)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        drawerLocker.lockDrawer()
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
 

@@ -30,13 +30,6 @@ class LandingFragment : Fragment() {
 
     private lateinit var drawerLocker: DrawerLocker
 
-    override fun onStart() {
-        super.onStart()
-
-        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
-            client = it
-        })
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,6 +49,11 @@ class LandingFragment : Fragment() {
     ): View {
 
         _binding = FragmentLandingBinding.inflate(inflater, container, false)
+
+        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
+            client = it
+        })
+
         binding.mStateViewModel = mStateManagerViewModel
         binding.lifecycleOwner = this
 
@@ -87,11 +85,6 @@ class LandingFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStop() {
-        super.onStop()
-        drawerLocker.unlockDrawer()
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()

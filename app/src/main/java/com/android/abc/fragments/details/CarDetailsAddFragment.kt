@@ -54,7 +54,6 @@ class CarDetailsAddFragment : Fragment() {
         _binding = FragmentCarDetailsAddBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-        drawerLocker.lockDrawer()
 
 
         mClientDetailsViewModel.setClientData(args.clientDetails)
@@ -125,11 +124,6 @@ class CarDetailsAddFragment : Fragment() {
         _binding = null
     }
 
-    override fun onStop() {
-        super.onStop()
-        drawerLocker.unlockDrawer()
-
-    }
 
 
 }

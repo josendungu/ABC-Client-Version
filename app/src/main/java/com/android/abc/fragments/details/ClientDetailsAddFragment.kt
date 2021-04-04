@@ -106,11 +106,6 @@ class ClientDetailsAddFragment : Fragment() {
         _binding = null
     }
 
-    override fun onStop() {
-        super.onStop()
-        drawerLocker.unlockDrawer()
-
-    }
 
 
 
