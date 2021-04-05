@@ -113,7 +113,7 @@ class ScheduleClientDetailsFragment : Fragment() {
         }
 
         binding.buttonCancel.setOnClickListener {
-            val action = ScheduleClientDetailsFragmentDirections.actionScheduleClientDetailsToDashboard(client)
+            val action = ScheduleClientDetailsFragmentDirections.actionScheduleClientDetailsToDashboard()
             findNavController().navigate(action)
         }
 

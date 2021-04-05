@@ -24,7 +24,6 @@ class LandingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mStateManagerViewModel: StateManagerViewModel by viewModels()
-    private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
 
     private lateinit var client: Client
 
@@ -50,9 +49,7 @@ class LandingFragment : Fragment() {
 
         _binding = FragmentLandingBinding.inflate(inflater, container, false)
 
-        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
-            client = it
-        })
+
 
         binding.mStateViewModel = mStateManagerViewModel
         binding.lifecycleOwner = this
@@ -66,8 +63,7 @@ class LandingFragment : Fragment() {
 
             if (state) {
 
-                val action = LandingFragmentDirections.actionLandingToDashboard(client)
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_landing_to_dashboard)
 
             }
 

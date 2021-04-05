@@ -15,6 +15,7 @@ import com.android.abc.activity.DrawerLocker
 import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.data.viewmodel.StateManagerViewModel
 import com.android.abc.databinding.FragmentCarDetailsAddBinding
+import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
 
@@ -104,8 +105,11 @@ class CarDetailsAddFragment : Fragment() {
                     val action = CarDetailsAddFragmentDirections.actionCarDetailsAddFragmentToScheduleCarDetailsFragment(mClientDetailsViewModel.getClient(),true)
                     findNavController().navigate(action)
                 } else {
-                    val action = CarDetailsAddFragmentDirections.actionCarDetailsAddToDashboard(mClientDetailsViewModel.getClient(), clientAddSuccess = true)
-                    findNavController().navigate(action)
+                    val snackBar = Snackbar.make(binding.snackBarContainer, R.string.client_added, Snackbar.LENGTH_INDEFINITE)
+                    snackBar.setAction("OK") {
+                        findNavController().navigate(R.id.action_carDetailsAdd_to_dashboard)
+                    }
+                    snackBar.show()
                 }
 
             }

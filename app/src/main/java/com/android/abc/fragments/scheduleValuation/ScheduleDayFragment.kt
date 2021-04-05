@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.abc.R
@@ -89,7 +90,7 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
         pickTime()
 
         binding.buttonCancel.setOnClickListener {
-            val action = ScheduleDayFragmentDirections.actionScheduleDayToDashboard(client)
+            val action = ScheduleDayFragmentDirections.actionScheduleDayToDashboard()
             findNavController().navigate(action)
         }
 
@@ -118,8 +119,14 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
                     databaseReference.push().setValue(scheduleDetails)
                         .addOnSuccessListener {
                             button.isClickable = false
-                            val action = ScheduleDayFragmentDirections.actionScheduleDayToDashboard(client, true)
-                            findNavController().navigate(action)
+
+                            binding.progressBar.visibility = View.INVISIBLE
+                            binding.successDisplay.visibility = View.VISIBLE
+                            val snackBar = Snackbar.make(binding.snackBarContainer,"Valuation schedule was successful. Please read the information above" , Snackbar.LENGTH_INDEFINITE)
+                            snackBar.setAction("OK") {
+                                findNavController().navigate(R.id.action_scheduleDay_to_dashboard)
+                            }
+                            snackBar.show()
 
                         }
                         .addOnFailureListener {
@@ -179,5 +186,7 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
         binding.editTextDate.text = dateTimeValue
 
     }
+
+
 
 }

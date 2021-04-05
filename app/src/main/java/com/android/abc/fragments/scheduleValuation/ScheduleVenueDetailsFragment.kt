@@ -78,7 +78,7 @@ class ScheduleVenueDetailsFragment : Fragment() {
         mClientDetailsViewModel.setClientData(client)
 
         binding.buttonCancel.setOnClickListener {
-            val action = ScheduleVenueDetailsFragmentDirections.actionScheduleVenueDetailsToDashboard(client)
+            val action = ScheduleVenueDetailsFragmentDirections.actionScheduleVenueDetailsToDashboard()
             findNavController().navigate(action)
         }
 

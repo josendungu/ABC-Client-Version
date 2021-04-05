@@ -14,14 +14,12 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.android.abc.R
 import com.android.abc.databinding.ActivityMainBinding
-import com.android.abc.databinding.NavigationHeaderBinding
+import com.android.abc.fragments.DashboardFragment
 import com.google.android.material.navigation.NavigationView
 
 
@@ -29,30 +27,29 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var navController: NavController
+    private var navController: NavController? = null
 
     private var active = R.id.dashboardFragment
-
-
+    private var navHostFragment: NavHostFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val navHostFragment =  supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        navController = navHostFragment.navController
+
+        navHostFragment =  supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        navController = navHostFragment!!.navController
         setupDrawerLayout()
 
-        val window = this.window;
+        val window = this.window
         // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         // finally change the color
-        window.statusBarColor = ContextCompat.getColor(this,R.color.blue);
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blue)
         binding.navView.setNavigationItemSelectedListener(this)
 
     }
-
 
     override fun setup(toolbar: Toolbar, fragmentId: Int) {
 
@@ -74,20 +71,19 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
 
 
     override fun lockDrawer() {
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
     override fun unlockDrawer() {
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, binding.drawerLayout)
+        return NavigationUI.navigateUp(navController!!, binding.drawerLayout)
     }
 
     private fun setupDrawerLayout() {
-
-        binding.navView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController!!)
     }
 
     override fun onBackPressed() {
@@ -98,12 +94,14 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
         }
     }
 
+
+
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
 
             R.id.dashboardFragment -> {
-                navController.navigateUp()
-                navController.navigate(R.id.dashboardFragment)
+                Toast.makeText(this, "Moving to dashboard", Toast.LENGTH_LONG).show()
             }
 
             R.id.nav_policy_status -> {
@@ -133,11 +131,6 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
 
             R.id.road_side -> {
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
-            }
-
-            R.id.contact -> {
-                navController.navigateUp()
-                navController.navigate(R.id.contactFragment)
             }
 
         }

@@ -1,20 +1,24 @@
 package com.android.abc.fragments
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.android.abc.R
-import com.android.abc.activity.ClearStack
 import com.android.abc.activity.DrawerLocker
 import com.android.abc.activity.SetupActionBar
 import com.android.abc.data.models.Client
+import com.android.abc.data.viewmodel.ClientDetailsViewModel
 import com.android.abc.databinding.FragmentDashboardBinding
 import java.lang.Exception
 
@@ -22,18 +26,10 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-
-    private val args by navArgs<DashboardFragmentArgs>()
-
     private lateinit var client: Client
-    private var scheduleSuccess: Boolean = false
-    private var clientDetailsAdd: Boolean = false
-
+    private val mClientDetailsViewModel: ClientDetailsViewModel by viewModels()
     private lateinit var setupActionBar: SetupActionBar
-
     private lateinit var drawerLocker: DrawerLocker
-
-    private val handler = Handler()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,7 +42,11 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupToolBar()
 
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,40 +54,69 @@ class DashboardFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
+        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
+            client = it
+        })
+
         drawerLocker.unlockDrawer()
-        scheduleSuccess = args.scheduleSuccess
-        clientDetailsAdd = args.clientAddSuccess
 
-        client = args.clientDetails
-        val clientName = "${client.firstName} ${client.lastName}"
-
-        Log.d("ClientDetails", "onCreateView: ${client.surname}")
-
-        setupToolBar()
-
-        if (clientDetailsAdd){
-            binding.addedPrompt.visibility = View.VISIBLE
-            binding.addedPrompt.text = getString(R.string.client_added)
-            hideMessage()
-        }
-
-        if (scheduleSuccess){
-            binding.addedPrompt.visibility = View.VISIBLE
-            hideMessage()
-        }
 
         binding.schedule.setOnClickListener {
-            if (binding.addedPrompt.visibility == View.VISIBLE){
-                handler.removeCallbacksAndMessages(null)
-                binding.addedPrompt.visibility = View.GONE
-            }
             val action = DashboardFragmentDirections.actionDashboardToScheduleCarDetails(client)
-            findNavController().navigate(action)
+            Navigation.findNavController(requireView()).navigate(action)
         }
 
+        binding.phoneOne.setOnClickListener {
 
+            binding.message.text = getString(R.string.call)
+            binding.message.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:${resources.getString(R.string.phone_1)}")
+
+            if (checkCallPermission()){
+                startActivity(callIntent)
+            } else {
+                binding.message.text = getString(R.string.call_permission)
+                binding.message.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+            }
+        }
+
+        binding.phoneTwo.setOnClickListener {
+
+            binding.message.text = getString(R.string.call_permission)
+            binding.message.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:${resources.getString(R.string.phone_2)}")
+
+            if (checkCallPermission()){
+                startActivity(callIntent)
+            } else {
+                binding.message.text = getString(R.string.call)
+                binding.message.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+        }
 
         return binding.root
+    }
+
+
+    private fun checkCallPermission() : Boolean {
+        return if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CALL_PHONE),
+                Companion.REQUEST_CALL
+            )
+
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
+
+
+        } else {
+            true
+        }
     }
 
     private fun setupToolBar() {
@@ -95,11 +124,6 @@ class DashboardFragment : Fragment() {
         setupActionBar.setup(binding.toolBarLayout, R.id.dashboardFragment)
     }
 
-    private fun hideMessage(){
-        handler.postDelayed({
-            binding.addedPrompt.visibility = View.GONE
-        }, 10000)
-    }
 
     override fun onStop() {
         super.onStop()
@@ -111,6 +135,10 @@ class DashboardFragment : Fragment() {
         super.onDestroyView()
         _binding = null
 
+    }
+
+    companion object {
+        private const val REQUEST_CALL = 1
     }
 
 
