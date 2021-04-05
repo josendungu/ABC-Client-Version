@@ -88,6 +88,9 @@
             android:name="clientAddSuccess"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleCarDetailsFragment"
@@ -183,5 +186,14 @@
         <argument
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.android.abc.fragments.ContactFragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" >
+        <action
+            android:id="@+id/action_contactFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
 </navigation>

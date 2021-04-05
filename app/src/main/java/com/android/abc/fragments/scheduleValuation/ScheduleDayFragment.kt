@@ -84,7 +84,6 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
         drawerLocker.lockDrawer()
 
         binding.progressBar.indeterminateDrawable.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_ATOP)
-
         binding.plateNumber.text = scheduleDetails.plateNumber
 
         pickTime()
@@ -111,6 +110,7 @@ class ScheduleDayFragment : Fragment(), DatePickerDialog.OnDateSetListener, Time
 
                     scheduleDetails.day = finalDate
                     scheduleDetails.time = finalTime
+                    scheduleDetails.instrictions = binding.editTextRelevantDetails.text.toString()
 
                     val firebaseDatabase = FirebaseDatabase.getInstance()
                     val databaseReference = firebaseDatabase.getReference("ScheduledValuations/")

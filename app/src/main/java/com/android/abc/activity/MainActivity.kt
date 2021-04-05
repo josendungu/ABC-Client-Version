@@ -12,6 +12,8 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -88,9 +90,8 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
         when(item.itemId){
 
             R.id.dashboardFragment -> {
-                if (!checkIfActive(R.id.dashboardFragment))
-                    Toast.makeText(this, "Moving to dashboard", Toast.LENGTH_LONG).show()
-
+                navController.navigateUp()
+                navController.navigate(R.id.dashboardFragment)
             }
 
             R.id.nav_policy_status -> {
@@ -101,8 +102,7 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
             }
 
             R.id.quote -> {
-                if (!checkIfActive(R.id.quote))
-                    Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
             }
 
             R.id.nav_covers -> {
@@ -112,7 +112,6 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
                 startActivity(i)
             }
             R.id.assessment -> {
-
                 val url = "https://abcautovaluersltd.com"
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse(url)
@@ -121,8 +120,12 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
             }
 
             R.id.road_side -> {
-                if (!checkIfActive(R.id.quote))
-                    Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
+            }
+
+            R.id.contact -> {
+                navController.navigateUp()
+                navController.navigate(R.id.contactFragment)
             }
 
         }
@@ -131,9 +134,6 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
         return true
     }
 
-    private fun checkIfActive(fragmentId: Int) : Boolean {
-        return (active == fragmentId)
-    }
 
 
 }

@@ -16,6 +16,7 @@ data class ScheduleDetails(
     var county: String? = null,
     var town: String? = null,
     var locationDetails: String? = null,
+    var instrictions: String? = null,
     var day: String? = null,
     var time: String? = null,
     var assignedTo: String? = null

@@ -26,6 +26,10 @@
             android:id="@+id/road_side"
             android:title="@string/road_side_assistance"/>
 
+        <item
+            android:id="@+id/contact"
+            android:title="@string/contact_us"/>
+
     </group>
 
 </menu>
