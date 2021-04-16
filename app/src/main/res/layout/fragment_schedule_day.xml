@@ -82,7 +82,7 @@
                 android:layout_marginStart="-10dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_italic"
-                android:text="@string/valuation_location_details"
+                android:text="@string/valuation_date_and_time_details"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRight"

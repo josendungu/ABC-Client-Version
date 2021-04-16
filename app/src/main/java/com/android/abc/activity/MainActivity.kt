@@ -14,8 +14,12 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.android.abc.R
 import com.android.abc.databinding.ActivityMainBinding
@@ -23,21 +27,23 @@ import com.android.abc.fragments.DashboardFragment
 import com.google.android.material.navigation.NavigationView
 
 
-class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar,
+    NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
 
     private var navController: NavController? = null
-
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private var active = R.id.dashboardFragment
-    private var navHostFragment: NavHostFragment? = null
+
+    private lateinit var listener: NavController.OnDestinationChangedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        navHostFragment =  supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        navController = navHostFragment!!.navController
+        navController = findNavController(R.id.nav_host_fragment_container)
+        appBarConfiguration = AppBarConfiguration(navController!!.graph, binding.drawerLayout)
         setupDrawerLayout()
 
         val window = this.window
@@ -47,7 +53,7 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         // finally change the color
         window.statusBarColor = ContextCompat.getColor(this, R.color.blue)
-        binding.navView.setNavigationItemSelectedListener(this)
+
 
     }
 
@@ -79,11 +85,13 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController!!, binding.drawerLayout)
+        val navController = findNavController(R.id.nav_host_fragment_container)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     private fun setupDrawerLayout() {
         binding.navView.setupWithNavController(navController!!)
+        binding.navView.setNavigationItemSelectedListener(this)
     }
 
     override fun onBackPressed() {
@@ -94,50 +102,40 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar, Navigati
         }
     }
 
-
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-
             R.id.dashboardFragment -> {
-                Toast.makeText(this, "Moving to dashboard", Toast.LENGTH_LONG).show()
+                findNavController( R.id.nav_host_fragment_container).navigate(R.id.dashboardFragment)
             }
-
+            R.id.roadSideFragment -> {
+                findNavController( R.id.nav_host_fragment_container).navigate(R.id.roadSideFragment)
+            }
             R.id.nav_policy_status -> {
                 val url = "http://fidelityshield.com/account/"
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse(url)
                 startActivity(i)
             }
-
-            R.id.quote -> {
-                Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
-            }
-
-            R.id.nav_covers -> {
-                val url = "http://fidelityshield.com/products/personal-solutions/"
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(url)
-                startActivity(i)
-            }
+//            R.id.nav_covers -> {
+//                val url = "http://fidelityshield.com/products/personal-solutions/"
+//                val i = Intent(Intent.ACTION_VIEW)
+//                i.data = Uri.parse(url)
+//                startActivity(i)
+//            }
             R.id.assessment -> {
                 val url = "https://abcautovaluersltd.com"
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse(url)
                 startActivity(i)
-
             }
-
-            R.id.road_side -> {
+            R.id.quote -> {
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_LONG).show()
             }
-
         }
-
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
 
 
 

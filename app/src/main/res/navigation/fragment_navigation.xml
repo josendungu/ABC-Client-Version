@@ -77,6 +77,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_roadSideFragment2"
+            app:destination="@id/roadSideFragment" />
 
     </fragment>
     <fragment
@@ -174,4 +177,9 @@
             android:name="clientDetails"
             app:argType="com.android.abc.data.models.Client" />
     </fragment>
+    <fragment
+        android:id="@+id/roadSideFragment"
+        android:name="com.android.abc.fragments.RoadSideFragment"
+        android:label="fragment_road_side"
+        tools:layout="@layout/fragment_road_side" />
 </navigation>

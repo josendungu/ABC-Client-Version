@@ -36,7 +36,7 @@
     <string name="added_prompt">You successfully booked a valuation. Expect a call from us soon. Please remember to have a copy of your log book, KRA Pin and Identification Card with you during the valuation</string>
     <string name="add_plate">Add Plate Number</string>
     <string name="my_policy_status">My Policy Status</string>
-    <string name="insurance_covers">Insurance Covers</string>
+    <string name="insurance_covers">Purchase Insurance</string>
     <string name="assessment">Assessment</string>
     <string name="request_quote">Request Quote</string>
     <string name="road_side_assistance">Road Side Assistance</string>
@@ -51,4 +51,16 @@
     <string name="phone">Phone</string>
     <string name="call_permission">\"You have not given the app permission to make calls. Click on the phone number to grant permission to the app \"</string>
     <string name="logo">logo</string>
+    <string name="motor_insurance">Motor Insurance</string>
+    <string name="life_insurance">life Insurance</string>
+    <string name="domestic_insurance">Domestic Insurance</string>
+    <string name="health_insurance">Health Insurance</string>
+    <string name="investment_insurance">Investment Insurance</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="valuation_date_and_time_details">Valuation date and time details</string>
+    <string name="road_side_prompt">Please provide the following details for assistance</string>
+    <string name="location_description">Location Description</string>
+    <string name="issue">What\'s the issue</string>
+    <string name="request_assistance">Request Assistance</string>
+    <string name="_2021_abc_auto_valuers">© 2021. ABC AUTO VALUERS</string>
 </resources>

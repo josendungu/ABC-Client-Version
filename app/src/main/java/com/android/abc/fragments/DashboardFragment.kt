@@ -42,6 +42,11 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        drawerLocker.unlockDrawer()
+    }
+
     override fun onResume() {
         super.onResume()
         setupToolBar()
@@ -57,9 +62,6 @@ class DashboardFragment : Fragment() {
         mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
             client = it
         })
-
-        drawerLocker.unlockDrawer()
-
 
         binding.schedule.setOnClickListener {
             val action = DashboardFragmentDirections.actionDashboardToScheduleCarDetails(client)
@@ -124,12 +126,11 @@ class DashboardFragment : Fragment() {
         setupActionBar.setup(binding.toolBarLayout, R.id.dashboardFragment)
     }
 
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDetach() {
+        super.onDetach()
         drawerLocker.lockDrawer()
-
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
