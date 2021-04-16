@@ -30,10 +30,16 @@
             android:layout_gravity="start"
             app:headerLayout="@layout/navigation_header"
             android:layout_height="match_parent"
-            app:menu="@menu/drawer_view"
             android:fitsSystemWindows="true">
 
-
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:background="@android:color/white"
+                android:dividerHeight="0dp"
+                android:groupIndicator="@null" />
 
             <LinearLayout
                 android:layout_width="match_parent"
