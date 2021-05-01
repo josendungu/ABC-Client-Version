@@ -15,6 +15,6 @@
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@android:color/holo_green_dark</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 </resources>

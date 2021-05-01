@@ -63,4 +63,12 @@
     <string name="issue">What\'s the issue</string>
     <string name="request_assistance">Request Assistance</string>
     <string name="_2021_abc_auto_valuers">© 2021. ABC AUTO VALUERS</string>
+    <string name="purchase_motor_insurance">Purchase Motor Insurance</string>
+    <string name="vehicle_make">Vehicle Make</string>
+    <string name="vehicle_model">Vehicle Model</string>
+    <string name="year_of_manufacture">Year of Manufacture</string>
+    <string name="day_of_commencement">Day of Commencement</string>
+    <string name="purchase">Purchase</string>
+    <string name="spinner_error">Spinner Error</string>
+    <string name="select_field">Please select a field</string>
 </resources>

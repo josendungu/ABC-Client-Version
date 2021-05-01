@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import com.android.abc.R
 import com.android.abc.activity.DrawerLocker
@@ -59,9 +60,9 @@ class DashboardFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner, {
+        mClientDetailsViewModel.fetchClientData().observe(viewLifecycleOwner) {
             client = it
-        })
+        }
 
         binding.schedule.setOnClickListener {
             val action = DashboardFragmentDirections.actionDashboardToScheduleCarDetails(client)

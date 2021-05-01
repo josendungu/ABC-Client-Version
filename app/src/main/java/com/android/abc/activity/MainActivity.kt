@@ -257,7 +257,7 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar,
                 onBackPressed()
             }
             MOTOR -> {
-                navigateBrowser("https://fidelityshield.com/product/motor/")
+                findNavController(R.id.nav_host_fragment_container).navigate(R.id.motorInsuranceFragment)
                 onBackPressed()
             }
             DOMESTIC -> {

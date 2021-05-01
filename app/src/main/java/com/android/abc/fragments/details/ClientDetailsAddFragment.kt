@@ -73,19 +73,16 @@ class ClientDetailsAddFragment : Fragment() {
                 mSharedViewModel.validateLastName(lastName, binding.editTextLastName) &&
                 mSharedViewModel.validateCounty(county, binding.editTextCounty) &&
                 mSharedViewModel.validateTown(town, binding.editTextTown) &&
-                mSharedViewModel.validatePhone(phoneNumber.toString(), binding.editTextNumber) &&
+                mSharedViewModel.validatePhone(phoneNumber, binding.editTextNumber) &&
                 mSharedViewModel.validateEmail(email, binding.editTextEmail) &&
-                mSharedViewModel.validateId(id.toString(), binding.editTextId)
+                mSharedViewModel.validateId(id, binding.editTextId)
             ) {
-
                 val action =
                     ClientDetailsAddFragmentDirections.actionClientDetailsToCarDetails(client)
                 findNavController().navigate(action)
             }
 
         }
-
-
 
         return binding.root
     }

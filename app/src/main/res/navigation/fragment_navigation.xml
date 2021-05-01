@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_roadSideFragment2"
             app:destination="@id/roadSideFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_motorInsuranceFragment"
+            app:destination="@id/motorInsuranceFragment" />
 
     </fragment>
     <fragment
@@ -182,4 +185,9 @@
         android:name="com.android.abc.fragments.RoadSideFragment"
         android:label="fragment_road_side"
         tools:layout="@layout/fragment_road_side" />
+    <fragment
+        android:id="@+id/motorInsuranceFragment"
+        android:name="com.android.abc.fragments.MotorInsuranceFragment"
+        android:label="fragment_motor_insurance"
+        tools:layout="@layout/fragment_motor_insurance" />
 </navigation>
