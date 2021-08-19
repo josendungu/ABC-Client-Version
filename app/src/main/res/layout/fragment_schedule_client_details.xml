@@ -7,7 +7,7 @@
 
         <variable
             name="mClientDetails"
-            type="com.abc.client1.data.viewmodel.ClientDetailsViewModel" />
+            type="com.abc.schedule.data.viewmodel.ClientDetailsViewModel" />
 
     </data>
 

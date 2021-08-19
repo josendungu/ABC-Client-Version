@@ -7,7 +7,7 @@
 
         <variable
             name="mStateViewModel"
-            type="com.abc.client1.data.viewmodel.StateManagerViewModel" />
+            type="com.abc.schedule.data.viewmodel.StateManagerViewModel" />
 
     </data>
 
