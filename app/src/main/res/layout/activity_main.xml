@@ -32,27 +32,48 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
 
-            <ExpandableListView
-                android:id="@+id/expandableListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="200dp"
-                android:background="@android:color/white"
-                android:dividerHeight="0dp"
-                android:groupIndicator="@null" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/footer_item_1"
+                android:layout_height="match_parent"
+                android:layout_marginTop="200dp">
+
+                <ExpandableListView
+                    android:id="@+id/expandableListView"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center"
-                    android:text="@string/_2021_abc_auto_valuers" />
-            </LinearLayout>
+                    android:layout_height="0dp"
+                    android:background="@android:color/white"
+                    android:dividerHeight="0dp"
+                    android:groupIndicator="@null"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/footer_item_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="@string/_2021_abc_auto_valuers" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
         </com.google.android.material.navigation.NavigationView>
 
 

@@ -185,7 +185,7 @@ class MotorInsuranceFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         //puriemunyoki@gmail.com
         try {
-            gMailSender.sendMail(subject, body, sender, "puriemunyoki@gmail.com")
+            gMailSender.sendMail(subject, body, sender, "primeriskinsuranceagency@gmail.com")
             sendSuccess()
         } catch (e: Exception){
             sendError()

@@ -8,7 +8,7 @@ class Validate(private val value: String, private val editText: EditText) {
 
     private val tag = "Validate"
 
-    private val containWhiteSpace = Regex("\\A\\w{4,20}\\z")
+    private val containWhiteSpace = Regex("\\A\\w{3,20}\\z")
     private val emailPattern = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})".toRegex()
     private val phoneNumberPattern = Regex("[0-9]{10}")
     private val atLeastOneSpecialCharacter = Regex("(?=.*[@#$%^&+=])")

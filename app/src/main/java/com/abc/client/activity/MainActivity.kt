@@ -271,6 +271,10 @@ class MainActivity : AppCompatActivity(), DrawerLocker, SetupActionBar,
                 navigateBrowser("https://fidelityshield.com/product/marine-insurance/")
                 onBackPressed()
             }
+            QUOTE -> {
+                navigateBrowser("https://fidelityshield.com/product/domestic-package/#Enquire")
+                onBackPressed()
+            }
 
         }
     }
